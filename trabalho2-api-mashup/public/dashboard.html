@@ -1,21 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html style="height: 100%;background: aliceblue;" lang="en">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard</title>
 </head>
+
 <body>
-  <h1>Search Info</h1>
+  <div style="display: flex;flex-direction: column;align-items: center;gap: 10px;">
+    <h1>Search Info</h1>
 
-  <form id="search-form">
-    <input type="text" id="search-query" placeholder="Search for a city..." required />
-    <button type="submit">Search</button>
-  </form>
+    <form id="search-form">
+      <input type="text" id="search-query" placeholder="Search for a city..." required />
+      <button type="submit">Search</button>
+    </form>
 
-  <button id="logout">Logout</button>
+    <button id="logout">Logout</button>
 
-  <div id="results"></div>
+    <div style="display: flex;
+    flex-direction: column;
+    align-items: center;
+" id="results"></div>
+  </div>
 
   <script>
     document.getElementById('logout').addEventListener('click', async () => {
@@ -41,4 +48,5 @@
     });
   </script>
 </body>
+
 </html>
