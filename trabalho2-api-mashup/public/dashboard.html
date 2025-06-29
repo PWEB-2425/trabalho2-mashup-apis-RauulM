@@ -1,23 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard</title>
-  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <div class="container">
-    <h1>Dashboard – API Mashup</h1>
-    <button id="logoutBtn">Logout</button>
+  <h1>Search Info</h1>
 
-    <form id="searchForm">
-      <input type="text" id="searchInput" placeholder="Search something (e.g. Porto)" required />
-      <button type="submit">Search</button>
-    </form>
+  <form id="search-form">
+    <input type="text" id="search-query" placeholder="Search for a city..." required />
+    <button type="submit">Search</button>
+  </form>
 
-    <div id="results"></div>
-  </div>
+  <button id="logout">Logout</button>
 
-  <script src="js/main.js"></script>
+  <div id="results"></div>
+
+  <script>
+    document.getElementById('logout').addEventListener('click', async () => {
+      await fetch('/auth/logout');
+      window.location.href = '/';
+    });
+
+    document.getElementById('search-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const query = document.getElementById('search-query').value;
+      const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+      const data = await res.json();
+
+      const output = document.getElementById('results');
+      if (res.ok) {
+        output.innerHTML = `
+          <h2>Weather</h2><p>${data.weather}</p>
+          <h2>Wikipedia</h2><p>${data.summary}</p>
+        `;
+      } else {
+        output.innerHTML = `<p style="color:red">${data.error || "Search failed"}</p>`;
+      }
+    });
+  </script>
 </body>
 </html>
