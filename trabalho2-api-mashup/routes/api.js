@@ -28,7 +28,7 @@ router.get('/search', requireAuth, async (req, res) => {
     const weatherInfo = `${weatherData.weather[0].description}, ${weatherData.main.temp} °C`;
 
     // 2. Wikipedia API
-    const wikiRes = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`);
+    const wikiRes = await fetch(`https://pt.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(query)}`);
     const wikiData = await wikiRes.json();
     const summary = wikiData.extract || 'No summary available.';
 
