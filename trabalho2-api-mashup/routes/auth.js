@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
         const user = new User({ username, password });
         await user.save();
 
-        req.session.userId = user._id; // Log user in
+        req.session.user = user._id; // Log user in
         res.status(201).json({ message: 'User registered', user: { username: user.username } });
     } catch (err) {
         res.status(500).json({ error: 'Error registering user' });
@@ -31,7 +31,7 @@ router.post('/login', async (req, res) => {
         const isMatch = await user.comparePassword(password);
         if (!isMatch) return res.status(400).json({ error: 'Invalid username or password' });
 
-        req.session.userId = user._id;
+        req.session.user = user._id;
         res.json({ message: 'Logged in', user: { username: user.username } });
     } catch (err) {
         res.status(500).json({ error: 'Error logging in' });
